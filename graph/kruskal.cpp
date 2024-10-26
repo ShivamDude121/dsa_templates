@@ -1,8 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-
-class DisjointSet {
+ 
+  class DisjointSet {
     vector<int> rank, parent, size;
 public:
     DisjointSet(int n) {
@@ -51,18 +48,13 @@ public:
         }
     }
 };
+
 class Solution
 {
 public:
     //Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
-        // 1 - 2 wt = 5
-        /// 1 - > (2, 5)
-        // 2 -> (1, 5)
-
-        // 5, 1, 2
-        // 5, 2, 1
         vector<pair<int, pair<int, int>>> edges;
         for (int i = 0; i < V; i++) {
             for (auto it : adj[i]) {
@@ -73,20 +65,27 @@ public:
                 edges.push_back({wt, {node, adjNode}});
             }
         }
-        DisjointSet ds(V);
-        sort(edges.begin(), edges.end());
-        int mstWt = 0;
-        for (auto it : edges) {
-            int wt = it.first;
-            int u = it.second.first;
-            int v = it.second.second;
 
-            if (ds.findUPar(u) != ds.findUPar(v)) {
-                mstWt += wt;
-                ds.unionBySize(u, v);
+        sort(edges.begin(), edges.end());
+
+        DisjointSet DSU(V);
+
+        int ans = 0;
+
+        for (auto i : edges) {
+
+            int wt = i.first;
+            int x = i.second.first;
+            int y = i.second.second;
+
+            if (DSU.findUPar(x) != DSU.findUPar(y)) {
+                ans += wt;
+                DSU.unionByRank(x, y);
+
             }
         }
 
-        return mstWt;
+        return ans;
+
     }
 };
