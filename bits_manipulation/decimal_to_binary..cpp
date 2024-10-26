@@ -1,4 +1,4 @@
-void binary_to_string(int n) {
+void decimal_to_string(int n) {
 
     string ans = "";
 
