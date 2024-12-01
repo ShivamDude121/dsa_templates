@@ -1,3 +1,5 @@
+//extendaed euqlid algo
+
 int gcd(int a, int b, int& x, int& y) {
     if (b == 0) {
         x = 1;
